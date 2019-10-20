@@ -1,0 +1,273 @@
+
+/* flex columns -- input & output */
+section {
+	display: block;
+	width: 700px;
+	margin: 0 auto;
+	margin-bottom: 30px;
+}
+
+div#wrapper {
+	display: flex;
+}
+
+#input, #output {
+	display: inline-block;
+}
+
+#input {
+	width: 60%;
+}
+
+#output {
+	width: 40%;
+}
+
+
+
+
+
+/* body */
+body {
+	background-color: #ffffff;
+	text-align: left;
+	font-family: 'Roboto', sans-serif;
+	color: #303030;
+	letter-spacing: 0.01em;
+	font-size: 15px;
+}
+
+p {
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+textarea {
+	box-sizing: border-box;
+	resize: vertical;
+	font-family: 'Roboto Mono', monospace;
+	padding: 5px;
+	border-color: #d1d1d1;
+}
+
+footer {
+	text-align: center;
+	margin-bottom: 60px;
+	font-size: 14px;
+	line-height: 25px;
+	color: #d1d1d1;
+}
+
+footer a {
+	color: #d1d1d1;
+}
+
+footer a:hover {
+	text-decoration: underline;
+}
+
+
+
+
+
+/* headers */
+header {
+	margin: 40px 0 20px;
+	text-align: center;
+}
+
+h1 {
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+/* 2 headers input & output */
+h2 {
+	margin-bottom: 20px;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+/* 4 subheaders input & output */
+h3 {
+	margin-bottom: 10px;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+/* 4 list styles */
+h4 {
+	margin-right: 10px;
+	display: inline;
+	font-family: 'Roboto Mono', monospace;
+	font-size: 14px;
+	font-weight: 400;
+}
+
+/* 2 lower headers */
+form>h3:nth-of-type(2), #output>h3:nth-of-type(2) {
+    margin-top:30px;
+}
+
+
+
+
+
+/* input */
+#input h3 {
+	text-decoration: underline;
+}
+
+form#submit {
+	width: 385px;
+}
+
+form#submit div {
+	margin-top: 15px;
+}
+
+/* 1 dropdown */
+select {
+	font-family: 'Roboto Mono', monospace;
+	color: #303030;
+	font-size: 14px;
+	font-weight: 400;
+	border-color: #d1d1d1;
+}
+
+/* 3 style fields */
+input {
+	font-family: 'Roboto Mono', monospace;
+	font-size: 14px;
+	font-weight: 400;
+	text-align: right;
+}
+
+/* [2] item fields */
+div#input textarea {
+	margin-top: 15px;
+	width: 100%;
+	color: #303030;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: 400;
+}
+
+button {
+	background-color: #ffffff;
+	margin: 0 auto;
+	margin-top: 25px;
+	display: block;
+	border: 1px solid #303030;
+	padding: 8px 15px;
+	font-size: 15px;
+	text-transform: uppercase;
+	color: #303030;
+	letter-spacing: 0.05em;
+	font-weight: 500;
+}
+
+div#increment {
+	text-align: center;
+}
+
+/* 2 buttons */
+div#increment div {
+	width: 30px;
+	height: 20px;
+	background-color: #d1d1d1;
+	display: inline-block;
+	margin: 0 5px;
+	font-weight: 500;
+}
+
+div#error {
+	margin: 10px auto!important;
+	text-align: center;
+	font-size: 14px;
+	color: red;
+}
+
+
+
+/* 2 output areas */
+div#output textarea {
+	width: 275px;
+	color: #8a8a8a;
+	font-size: 12px;
+	line-height: 18px;
+	font-weight: 300;
+}
+
+#output p {
+	margin-bottom: 10px;
+	font-size: 13px;
+	font-style: italic;
+}
+
+
+
+@media only screen and (max-width: 750px)  {
+
+	header, section {
+		width: 95%;
+	}
+
+	div#wrapper, #input, #output {
+		width: 100%;
+		display: block;
+	}
+
+	div#output textarea {
+		width: 385px;
+	}
+
+	header {
+		margin: 25px auto 10px;
+		text-align: left;
+	}
+
+	h1 {
+		text-align: left;
+	}
+
+	h2 {
+		margin-top: 50px;
+	}
+
+	h3 {
+		margin-top: 15px !important;
+	}
+
+}
+
+@media only screen and (max-width: 425px)  {
+
+	textarea, form#submit {
+		width: 100% !important;
+	}
+
+	/* 4 list styles */
+	h4 {
+		margin: 20px 0 5px;
+		display: block;
+	}
+
+	/* 2 lower headers */
+	form>h3:nth-of-type(2), #output>h3:nth-of-type(2) {
+	    margin-top: 30px !important;
+	}
+
+	header p {
+		line-height: 1.5;
+	}
+
+}
+
+
+

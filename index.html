@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Build HTML Lists for Email</title>
+		<meta name="description" content="Build Semantically Correct, Naturally Responsive HTML Lists for Email">
+
+		<!-- css -->
+		<link rel="stylesheet" href="css/styles.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400|Roboto:400,500,700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+
+		<header>
+			<h1>Bulletproof Email Lists</h1>
+			<p>Build Semantically Correct, Naturally Responsive HTML&nbsp;Lists&nbsp;for&nbsp;Email</p>
+		</header>
+
+		<section>
+
+			<div id="wrapper">
+
+				<div id="input">
+					<h2>Build Your List</h2>
+					<form id="submit">
+						<h3>List Styles</h3>
+							<div id="styles">
+								<div>
+									<h4>List Marker</h4>
+									<select form="submit">
+										<option value="disc">&#x25CF;&nbsp; disc</option>
+										<option value="circle">&#x25CB;&nbsp; circle</option>
+										<option value="square">‎&#x25A0;&nbsp; square</option>
+										<option value="decimal">1.&nbsp; numeral</option>
+										<option value="upper-alpha">A.&nbsp; uppercase alphabet</option>
+										<option value="lower-alpha">a.&nbsp; lowercase alphabet</option>
+									</select>
+								</div>
+								<div>
+									<h4>Left Indent</h4>
+									<input form="submit" name="indent" type="number" min="0" max="100" placeholder="40">&nbsp;px
+								</div>
+								<div>
+									<h4>Spacing Between List Items</h4>
+									<input form="submit" name="spaceBetween" type="number" min="0" max="100" placeholder="10">&nbsp;px
+								</div>
+								<div>
+									<h4>Spacing Above & Below List</h4>
+									<input form="submit" name="spaceAboveBelow" type="number" min="0" max="100" placeholder="20">&nbsp;px
+								</div>
+							</div>
+						<h3>List Items</h3>
+							<div id="items">
+								<textarea rows="1" form="submit" placeholder="Start typing..." spellcheck="false" style="margin-top:5px;"></textarea>
+								<textarea rows="1" form="submit" placeholder="Start typing..." spellcheck="false"></textarea>
+							</div>
+						<div id="increment">
+							<div>&#43;</div>
+							<div>&#8722;</div>
+						</div>
+						<button>Submit</button>
+						<div id="error">&nbsp;</div>
+					</form>
+				</div>
+
+				<div id="output">
+					<h2>Copy Your Code</h2>
+					<h3 style="margin-bottom:5px;">mso conditional</h3>
+					<p>Add this to your email <span style="font-family:'Roboto Mono',monospace;font-size:12px;">&#60;head&#62;</span></p>
+					<textarea rows="5" readonly="readonly" spellcheck="false"></textarea>
+					<h3>HTML</h3>
+					<textarea rows="5" readonly="readonly" spellcheck="false"></textarea>
+				</div>
+
+			</div>
+
+		</section>
+
+		<footer><a href="https://github.com/car1sle/bulletproof-lists" target="_blank">GitHub</a><br><a href="mailto:hello@lists.cm" target="_blank">hello@lists.cm</a><br>&#169; Copyright 2019 Carly Ciricillo</footer>
+
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+		<script src="js/main.js"></script>
+
+	</body>
+</html>
