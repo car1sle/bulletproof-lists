@@ -61,15 +61,15 @@ $(function(){
 			const listMarker = $('select')[0].value
 			console.log(`List marker: ${listMarker}`)
 
-			// call getStyle()
+			// call getSpacing()
 			// inputs do not allow negative numbers
-			const indent = getStyle('indent', 40)
+			const indent = getSpacing('indent', 40)
 			console.log(`Left indent: ${indent}px`)
 
-			const spaceBetween = getStyle('spaceBetween', 10)
+			const spaceBetween = getSpacing('spaceBetween', 10)
 			console.log(`Space between items: ${spaceBetween}px`)
 
-			const spaceAboveBelow = getStyle('spaceAboveBelow', 20)
+			const spaceAboveBelow = getSpacing('spaceAboveBelow', 20)
 			console.log(`Space above and below list: ${spaceAboveBelow}px`)
 
 			/* -------------------------------- */
@@ -78,7 +78,7 @@ $(function(){
 			const bareLis = []
 
 			// wrap each item in html li tag
-			// push each li tag, as a string, to emptsy bareLis array
+			// push each li tag, as a string, to empty bareLis array
 			$.each($items, function(index, input) {
 
 				const item = input.value.trim()
@@ -105,7 +105,7 @@ $(function(){
 			})
 
 			// style last item
-			// make bottom margin 0 - overrides gmail default
+			// make bottom margin 0 to override gmail default
 			// add class 'lastListItem'
 			const lastLi = styledLis.pop()
 			lastLi.style.margin = 0
@@ -177,8 +177,8 @@ $(function(){
 
 	})
 
-	// get list styles
-	const getStyle = (style, fallback) => {
+	// get list spacing
+	const getSpacing = (style, fallback) => {
 		if ($("input[name=" + style + "]").val().length === 0) {
 			return fallback
 		} else {
@@ -201,22 +201,28 @@ $(function(){
 		return mso
 	}
 
+	// indenter function
+	const indent = (code, replaceThis) => {
+		const regex = new RegExp(replaceThis, "gi")
+		code = code.replace(regex, '  $&')
+		return code
+	}
+
 	// indent html
 	const indentHtml = html => {
-		html = html.replace(/<li class/gi, '  $&')
-		html = html.replace(/<li style/gi, '  $&')
+		html = indent(html, '<li class')
+		html = indent(html, '<li style')
 		return html
 	}
 
 	// indent mso
 	const indentMso = mso => {
-		mso = mso.replace(/ul {margin/gi, '  $&')
-		mso = mso.replace(/li {margin/gi, '  $&')
-		mso = mso.replace(/li\.firstListItem/gi, '  $&')
-		mso = mso.replace(/li\.lastListItem/gi, '  $&')
+		mso = indent(mso, 'ul {margin')
+		mso = indent(mso, 'li {margin')
+		mso = indent(mso, 'li\.firstListItem')
+		mso = indent(mso, 'li\.lastListItem')
 		return mso
 	}
-
 
 
 })
