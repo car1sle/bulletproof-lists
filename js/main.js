@@ -34,28 +34,44 @@ $(function(){
 		event.preventDefault()
 		console.log('Form submitted')
 
-		// create global variable for total number of items
-		var itemCount = 0
+		// create variable for total number of items
+		let itemCount = 0
 
-		// create global variable for array of list items
-		var $items = $('#items textarea')
+		// create variable for instances of code detected in items
+		let codeFlags = 0
 
-		// update itemCount variable
+		// create variable for array of list items
+		const $items = $('#items textarea')
+
 		$.each($items, function(index, input) {
 
 			const item = input.value.trim()
 
 			if (item) {
+
+				// count items in itemCount variable
 				itemCount = itemCount + 1
+
+				// check if items include code
+				const replacedPatterns = ['><', 'css">ul', 'css">ol', '!important;} li', '!important;}<', '<li class', '<li style', 'ul {margin', 'li {margin', 'li\.firstListItem', 'li\.lastListItem']
+				
+				replacedPatterns.forEach(function(pattern) {
+					result = checkforPatterns(item, pattern)
+					if (result === true) {
+						codeFlags = codeFlags + 1
+					}
+				})
+
 			}
 
 		})
 
-		// log total number of items
+		// log itemCount and codeFlags
 		console.log(`Total items: ${itemCount}`)
+		console.log(`Code flags: ${codeFlags}`)
 
 		// program only runs if user submits at least two items
-		if (itemCount > 1) {
+		if (itemCount > 1 && codeFlags === 0) {
 
 			// create variables for list styles
 			const listMarker = $('select')[0].value
@@ -84,7 +100,7 @@ $(function(){
 				const item = input.value.trim()
 
 				if (item) {
-					console.log(`List Item: ${item}`)
+					console.log(`List item: ${item}`)
 					const itemHtml = `<li>${item}</li>`
 					bareLis.push(itemHtml)
 				}
@@ -167,10 +183,15 @@ $(function(){
 			$('#output textarea:last')[0].style.height = $('#output textarea:last')[0].scrollHeight + 5 + 'px'
 			$('#output textarea:first')[0].style.height = $('#output textarea:first')[0].scrollHeight + 5 + 'px'
 
+		} else if (codeFlags === 0) {
+
+			// error if user submits less than two items
+			$('#error').text('Your list needs at least two items.')
+
 		} else {
 
-			// code to runs if user submits less than two items
-			$('#error').text('Your list needs at least two items.')
+			// error if code detected in items
+			$('#error').text('Your list items cannot contain code.')
 
 		}
 
@@ -194,8 +215,8 @@ $(function(){
 	// break lines in mso
 	const breakLinesInMso = mso => {
 		mso = breakLinesInHtml(mso)
-		mso = mso.replace(/css">ul /gi, 'css">\nul ')
-		mso = mso.replace(/css">ol /gi, 'css">\nol ')
+		mso = mso.replace(/css">ul/gi, 'css">\nul')
+		mso = mso.replace(/css">ol/gi, 'css">\nol')
 		mso = mso.replace(/!important;} li/gi, '!important;}\nli')
 		mso = mso.replace(/!important;}</gi, '!important;}\n<')
 		return mso
@@ -210,18 +231,31 @@ $(function(){
 
 	// indent html
 	const indentHtml = html => {
-		html = indent(html, '<li class')
-		html = indent(html, '<li style')
+		patternsToIndent = ['<li class', '<li style']
+		// run indenter function on each pattern
+		patternsToIndent.forEach(function(pattern) {
+			html = indent(html, pattern)
+		})
 		return html
 	}
 
 	// indent mso
 	const indentMso = mso => {
-		mso = indent(mso, 'ul {margin')
-		mso = indent(mso, 'li {margin')
-		mso = indent(mso, 'li\.firstListItem')
-		mso = indent(mso, 'li\.lastListItem')
+		patternsToIndent = ['ul {margin', 'li {margin', 'li\.firstListItem', 'li\.lastListItem']
+		// run indenter function on each pattern
+		patternsToIndent.forEach(function(pattern) {
+			mso = indent(mso, pattern)
+		})
 		return mso
+	}
+
+	// check if a string includes a pattern
+	const checkforPatterns = (string, pattern) => {
+		if (string.includes(pattern)) {
+			return true
+		} else {
+			return false
+		}
 	}
 
 
