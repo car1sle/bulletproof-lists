@@ -137,7 +137,7 @@ $(function(){
 			/* -------------------------------- */
 
 			// create global listTag variable based on listMarker variable
-			if (listMarker === '1' || listMarker === 'A' || listMarker === 'a') {
+			if (listMarker === 'decimal' || listMarker === 'upper-alpha' || listMarker === 'lower-alpha') {
 				var listTag = 'ol'
 			} else {
 				var listTag = 'ul'
