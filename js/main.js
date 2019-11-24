@@ -54,9 +54,9 @@ $(function(){
 
 				// check if items include code
 				const replacedPatterns = ['><', 'css">ul', 'css">ol', '!important;} li', '!important;}<', '<li class', '<li style', 'ul {margin', 'li {margin', 'li\.firstListItem', 'li\.lastListItem']
-				
+
 				replacedPatterns.forEach(function(pattern) {
-					result = checkforPatterns(item, pattern)
+					result = checkForPatterns(item, pattern)
 					if (result === true) {
 						codeFlags = codeFlags + 1
 					}
@@ -72,6 +72,9 @@ $(function(){
 
 		// program only runs if user submits at least two items
 		if (itemCount > 1 && codeFlags === 0) {
+
+			// clear error message
+			$('#error').text('')
 
 			// create variables for list styles
 			const listMarker = $('select')[0].value
@@ -250,7 +253,7 @@ $(function(){
 	}
 
 	// check if a string includes a pattern
-	const checkforPatterns = (string, pattern) => {
+	const checkForPatterns = (string, pattern) => {
 		if (string.includes(pattern)) {
 			return true
 		} else {
