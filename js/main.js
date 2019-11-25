@@ -1,7 +1,6 @@
 $(function(){
 
-
-	// click event to add list item
+  	// click event to add list item
 	$('#increment div:first').click(() => {
 
 		// append new textarea inside #items div
@@ -34,11 +33,10 @@ $(function(){
 		event.preventDefault()
 		console.log('Form submitted')
 
-		// create variable for total number of items
+		// create counting variables
 		let itemCount = 0
-
-		// create variable for instances of code detected in items
-		let codeFlags = 0
+		let replacedPatternsFlags = 0
+		let detectedCodeFlags = 0
 
 		// create variable for array of list items
 		const $items = $('#items textarea')
@@ -54,11 +52,19 @@ $(function(){
 
 				// check if items include code
 				const replacedPatterns = ['><', 'css">ul', 'css">ol', '!important;} li', '!important;}<', '<li class', '<li style', 'ul {margin', 'li {margin', 'li\.firstListItem', 'li\.lastListItem']
+				const detectedCode = ['<table', '<img', '<h1']
 
 				replacedPatterns.forEach(function(pattern) {
 					result = checkForPatterns(item, pattern)
 					if (result === true) {
-						codeFlags = codeFlags + 1
+						replacedPatternsFlags = replacedPatternsFlags + 1
+					}
+				})
+
+				detectedCode.forEach(function(code) {
+					result = checkForPatterns(item, code)
+					if (result === true) {
+						detectedCodeFlags = detectedCodeFlags + 1
 					}
 				})
 
@@ -66,15 +72,22 @@ $(function(){
 
 		})
 
-		// log itemCount and codeFlags
-		console.log(`Total items: ${itemCount}`)
-		console.log(`Code flags: ${codeFlags}`)
+		// log counting variables
+		console.log(`Item count: ${itemCount}`)
+		console.log(`Replaced patterns flags: ${replacedPatternsFlags}`)
+		console.log(`Detected code flags: ${detectedCodeFlags}`)
 
 		// program only runs if user submits at least two items
-		if (itemCount > 1 && codeFlags === 0) {
+		// and if none of their input will be replaced by the program
+		if (itemCount > 1 && replacedPatternsFlags === 0) {
 
 			// clear error message
 			$('#error').text('')
+
+			// modal warning for any detected code
+			if (detectedCodeFlags > 0) {
+				$('#dialog').dialog('open')
+			}
 
 			// create variables for list styles
 			const listMarker = $('select')[0].value
@@ -186,15 +199,15 @@ $(function(){
 			$('#output textarea:last')[0].style.height = $('#output textarea:last')[0].scrollHeight + 5 + 'px'
 			$('#output textarea:first')[0].style.height = $('#output textarea:first')[0].scrollHeight + 5 + 'px'
 
-		} else if (codeFlags === 0) {
+		} else if (itemCount < 2) {
 
 			// error if user submits less than two items
 			$('#error').text('Your list needs at least two items.')
 
 		} else {
 
-			// error if code detected in items
-			$('#error').text('Your list items cannot contain code.')
+			// error if items contain replaced patterns
+			$('#error').text('Something went wrong.')
 
 		}
 
@@ -260,6 +273,36 @@ $(function(){
 			return false
 		}
 	}
+
+	// jquery dialog widget -- api.jqueryui.com/dialog
+	$('#dialog').text('Warning: The HTML in your list items might cause your list to render improperly.')
+    $('#dialog').dialog({
+    	autoOpen: false,
+    	// hide X button
+    	dialogClass: "no-close",
+    	// disable rest of page
+    	modal: true,
+    	closeOnEscape: false,
+    	buttons: [
+    		{
+    			text: 'Go Back',
+    			click: function() {
+    				$(this).dialog('close')
+    				// clear output textareas
+    				$('#output textarea').text('')
+    				// resize output textareas to original
+    				$('#output textarea:last')[0].style.height = '102px'
+    				$('#output textarea:first')[0].style.height = '102px'
+    			}
+		    },
+    		{
+    			text: 'Proceed',
+    			click: function() {
+    				$(this).dialog('close')
+    			}
+		    }
+		]
+    })
 
 
 })
