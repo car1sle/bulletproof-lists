@@ -27,7 +27,7 @@ $(function(){
 	})
 
 
-	// submit event to run program
+	// submit event
 	$('#submit').submit((event) => {
 
 		event.preventDefault()
@@ -39,9 +39,9 @@ $(function(){
 		let detectedCodeFlags = 0
 
 		// create variable for array of list items
-		const $items = $('#items textarea')
+		const items = getItems()
 
-		$.each($items, function(index, input) {
+		$.each(items, function(index, input) {
 
 			const item = input.value.trim()
 
@@ -81,123 +81,13 @@ $(function(){
 		// and if none of their input will be replaced by the program
 		if (itemCount > 1 && replacedPatternsFlags === 0) {
 
-			// clear error message
-			$('#error').text('')
-
 			// modal warning for any detected code
 			if (detectedCodeFlags > 0) {
 				$('#dialog').dialog('open')
-			}
-
-			// create variables for list styles
-			const listMarker = $('select')[0].value
-			console.log(`List marker: ${listMarker}`)
-
-			// call getSpacing()
-			// inputs do not allow negative numbers
-			const indent = getSpacing('indent', 40)
-			console.log(`Left indent: ${indent}px`)
-
-			const spaceBetween = getSpacing('spaceBetween', 10)
-			console.log(`Space between items: ${spaceBetween}px`)
-
-			const spaceAboveBelow = getSpacing('spaceAboveBelow', 20)
-			console.log(`Space above and below list: ${spaceAboveBelow}px`)
-
-			/* -------------------------------- */
-
-			// create empty array for bare li strings
-			const bareLis = []
-
-			// wrap each item in html li tag
-			// push each li tag, as a string, to empty bareLis array
-			$.each($items, function(index, input) {
-
-				const item = input.value.trim()
-
-				if (item) {
-					console.log(`List item: ${item}`)
-					const itemHtml = `<li>${item}</li>`
-					bareLis.push(itemHtml)
-				}
-
-			})
-
-			// create array of true html li tags
-			let styledLis = bareLis.join('')
-			styledLis = $.parseHTML(styledLis)
-
-			/* -------------------------------- */
-
-			// add bottom margins to all li tags
-			// creates space between list items
-			styledLis.forEach(function(li) {
-				li.style.margin = `0 0 ${spaceBetween}px`
-				li.style.textAlign = 'left'
-			})
-
-			// style last item
-			// make bottom margin 0 to override gmail default
-			// add class 'lastListItem'
-			const lastLi = styledLis.pop()
-			lastLi.style.margin = 0
-			lastLi.className = 'lastListItem'
-			styledLis.push(lastLi)
-
-			// style first item
-			// add class 'firstListItem'
-			const firstLi = styledLis.shift()
-			firstLi.className = 'firstListItem'
-			styledLis.unshift(firstLi)
-
-			/* -------------------------------- */
-
-			// create global listTag variable based on listMarker variable
-			if (listMarker === 'decimal' || listMarker === 'upper-alpha' || listMarker === 'lower-alpha') {
-				var listTag = 'ol'
 			} else {
-				var listTag = 'ul'
+				runProgram()
 			}
 
-			// create and style list html array
-			let html = `<${listTag} align="left"></${listTag}>`
-			html = $.parseHTML(html)
-			html = html[0]
-			html.style.listStyleType = listMarker
-			html.style.padding = `0 0 0 ${indent}px`
-			html.style.margin = `${spaceAboveBelow}px 0`
-			if (indent === 0) {
-				html.style.listStylePosition = `inside`
-			}
-
-			/* -------------------------------- */
-
-			// inject styledLis into list html array
-			styledLis.forEach(function(li) {
-				html.appendChild(li)
-			})
-
-			// log, format and display output HTML
-			html = html.outerHTML
-			console.log(`HTML: ${html}`)
-			html = breakLinesInHtml(html)
-			html = indentHtml(html)
-			$('#output textarea:last').text(html)
-
-			/* -------------------------------- */
-
-			// log, format and display output mso
-			mso = `<!--[if mso]><style type="text/css">${listTag} {margin:0 !important;} li {margin-left:${indent}px !important;} li.firstListItem {margin-top:${spaceAboveBelow}px !important;} li.lastListItem {margin-bottom:${spaceAboveBelow}px !important;}</style><![endif]-->`
-			console.log(`mso: ${mso}`)
-			mso = breakLinesInMso(mso)
-			mso = indentMso(mso)
-			$('#output textarea:first').text(mso)
-
-			/* -------------------------------- */
-
-			// resize output textareas to fit text
-			$('#output textarea:last')[0].style.height = $('#output textarea:last')[0].scrollHeight + 5 + 'px'
-			$('#output textarea:first')[0].style.height = $('#output textarea:first')[0].scrollHeight + 5 + 'px'
 
 		} else if (itemCount < 2) {
 
@@ -208,11 +98,138 @@ $(function(){
 
 			// error if items contain replaced patterns
 			$('#error').text('Something went wrong.')
+			console.log('Program did not run')
 
 		}
 
 
 	})
+
+	// get items
+	const getItems = () => {
+		const $items = $('#items textarea')
+		return $items
+	}
+
+	// run program
+	const runProgram = () => {
+		
+		console.log('Running program')
+		const items = getItems()
+
+		// clear error message
+		$('#error').text('')
+
+		// create variables for list styles
+		const listMarker = $('select')[0].value
+		console.log(`List marker: ${listMarker}`)
+
+		// call getSpacing()
+		// inputs do not allow negative numbers
+		const indent = getSpacing('indent', 40)
+		console.log(`Left indent: ${indent}px`)
+
+		const spaceBetween = getSpacing('spaceBetween', 10)
+		console.log(`Space between items: ${spaceBetween}px`)
+
+		const spaceAboveBelow = getSpacing('spaceAboveBelow', 20)
+		console.log(`Space above and below list: ${spaceAboveBelow}px`)
+
+		/* -------------------------------- */
+
+		// create empty array for bare li strings
+		const bareLis = []
+
+		// wrap each item in html li tag
+		// push each li tag, as a string, to empty bareLis array
+		$.each(items, function(index, input) {
+
+			const item = input.value.trim()
+
+			if (item) {
+				console.log(`List item: ${item}`)
+				const itemHtml = `<li>${item}</li>`
+				bareLis.push(itemHtml)
+			}
+
+		})
+
+		// create array of true html li tags
+		let styledLis = bareLis.join('')
+		styledLis = $.parseHTML(styledLis)
+
+		/* -------------------------------- */
+
+		// add bottom margins to all li tags
+		// creates space between list items
+		styledLis.forEach(function(li) {
+			li.style.margin = `0 0 ${spaceBetween}px`
+			li.style.textAlign = 'left'
+		})
+
+		// style last item
+		// make bottom margin 0 to override gmail default
+		// add class 'lastListItem'
+		const lastLi = styledLis.pop()
+		lastLi.style.margin = 0
+		lastLi.className = 'lastListItem'
+		styledLis.push(lastLi)
+
+		// style first item
+		// add class 'firstListItem'
+		const firstLi = styledLis.shift()
+		firstLi.className = 'firstListItem'
+		styledLis.unshift(firstLi)
+
+		/* -------------------------------- */
+
+		// create global listTag variable based on listMarker variable
+		if (listMarker === 'decimal' || listMarker === 'upper-alpha' || listMarker === 'lower-alpha') {
+			var listTag = 'ol'
+		} else {
+			var listTag = 'ul'
+		}
+
+		// create and style list html array
+		let html = `<${listTag} align="left"></${listTag}>`
+		html = $.parseHTML(html)
+		html = html[0]
+		html.style.listStyleType = listMarker
+		html.style.padding = `0 0 0 ${indent}px`
+		html.style.margin = `${spaceAboveBelow}px 0`
+		if (indent === 0) {
+			html.style.listStylePosition = `inside`
+		}
+
+		/* -------------------------------- */
+
+		// inject styledLis into list html array
+		styledLis.forEach(function(li) {
+			html.appendChild(li)
+		})
+
+		// log, format and display output HTML
+		html = html.outerHTML
+		console.log(`HTML: ${html}`)
+		html = breakLinesInHtml(html)
+		html = indentHtml(html)
+		$('#output textarea:last').text(html)
+
+		/* -------------------------------- */
+
+		// log, format and display output mso
+		mso = `<!--[if mso]><style type="text/css">${listTag} {margin:0 !important;} li {margin-left:${indent}px !important;} li.firstListItem {margin-top:${spaceAboveBelow}px !important;} li.lastListItem {margin-bottom:${spaceAboveBelow}px !important;}</style><![endif]-->`
+		console.log(`mso: ${mso}`)
+		mso = breakLinesInMso(mso)
+		mso = indentMso(mso)
+		$('#output textarea:first').text(mso)
+
+		/* -------------------------------- */
+
+		// resize output textareas to fit text
+		$('#output textarea:last')[0].style.height = $('#output textarea:last')[0].scrollHeight + 5 + 'px'
+		$('#output textarea:first')[0].style.height = $('#output textarea:first')[0].scrollHeight + 5 + 'px'
+	}
 
 	// get list spacing
 	const getSpacing = (style, fallback) => {
@@ -299,6 +316,7 @@ $(function(){
     			text: 'Proceed',
     			click: function() {
     				$(this).dialog('close')
+    				runProgram()
     			}
 		    }
 		]
