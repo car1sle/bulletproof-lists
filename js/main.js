@@ -52,7 +52,7 @@ $(function(){
 
 				// check if items include code
 				const replacedPatterns = ['><', 'css">ul', 'css">ol', '!important;} li', '!important;}<', '<li class', '<li style', 'ul {margin', 'li {margin', 'li\.firstListItem', 'li\.lastListItem']
-				const detectedCode = ['<table', '<img', '<h1']
+				const detectedCode = ['<table', '</table>', '<tbody', '</tbody>', '<thead', '</thead>', '<tfoot', '</tfoot>', '<tr>', '</tr>', '<td', '</td>', '<th', '</th>', '<div', '</div>', '<img', 'src="', '<br>', '<hr>', '<h1', '</h1>', '<h2', '</h2>', '<h3', '</h3', '</p>', '<span', '</span>', 'style="', '!important', 'href="', '</a>', '<sup>', '</sup>', '<sub>', '</sub>', '<button>', '</button>', '<pre>', '</pre>', 'text-align:', '<blockquote', '</blockquote>', '<abbr', '</abbr>', '</address>', '<bdo', '</bdo>', '<!--', '<embed', '</font>', '</label>', '<small', '</small>', '<svg', '</svg>']
 
 				replacedPatterns.forEach(function(pattern) {
 					result = checkForPatterns(item, pattern)
