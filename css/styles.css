@@ -229,13 +229,11 @@ div#output textarea {
 	line-height: 21px;
 }
 
-.ui-dialog-content {
-	padding-bottom: 0!important;
+#dialog {
+	padding-top:15px;
 }
 
 .ui-dialog-buttonpane {
-	margin: 0!important;
-	padding-top: 0!important;
 	border: 0;
 }
 
@@ -251,6 +249,16 @@ div#output textarea {
 
 .ui-dialog .ui-dialog-buttonpane button {
 	margin-top: 0;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+	padding-bottom: 10px;
+}
+
+.ui-button:active {
+	border-color: #cccccc;
+	background: #ededed;
+	color: #2b2b2b;
 }
 
 
