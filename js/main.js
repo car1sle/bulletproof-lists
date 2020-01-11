@@ -35,8 +35,8 @@ $(function(){
 
 		// create counting variables
 		let itemCount = 0
-		let replacedPatternsFlags = 0
-		let detectedCodeFlags = 0
+		let codeBreakerCount = 0
+		let warningCount = 0
 
 		// create variable for array of list items
 		const items = getItems()
@@ -47,24 +47,91 @@ $(function(){
 
 			if (item) {
 
-				// count items in itemCount variable
+				// count items
 				itemCount = itemCount + 1
 
-				// check if items include code
-				const replacedPatterns = ['><', 'css">ul', 'css">ol', '!important;} li', '!important;}<', '<li class', '<li style', 'ul {margin', 'li {margin', 'li\.firstListItem', 'li\.lastListItem']
-				const detectedCode = ['<table', '</table>', '<tbody', '</tbody>', '<thead', '</thead>', '<tfoot', '</tfoot>', '<tr>', '</tr>', '<td', '</td>', '<th', '</th>', '<div', '</div>', '<img', 'src="', '<br>', '<hr>', '<h1', '</h1>', '<h2', '</h2>', '<h3', '</h3', '</p>', '<span', '</span>', 'style="', '!important', 'href="', '</a>', '<sup>', '</sup>', '<sub>', '</sub>', '<button>', '</button>', '<pre>', '</pre>', 'text-align:', '<blockquote', '</blockquote>', '<abbr', '</abbr>', '</address>', '<bdo', '</bdo>', '<!--', '<embed', '</font>', '</label>', '<small', '</small>', '<svg', '</svg>']
+				// patterns that the program will replace
+				const replacedPatterns = [
+					'><',
+					'css">ul',
+					'css">ol',
+					'!important;} li',
+					'!important;}<',
+					'<li class',
+					'<li style',
+					'ul {margin',
+					'li {margin',
+					'li\.firstListItem',
+					'li\.lastListItem'
+				]
+				
+				// patterns that will break the program
+				const codeBreakers = [
+					'<table','</table>',
+					'<tbody', '</tbody>',
+					'<thead', '</thead>',
+					'<tfoot', '</tfoot>',
+					'<tr>', '</tr>',
+					'<td', '</td>',
+					'<th', '</th>',
+					'<div', '</div>',
+					'<img',
+					'<hr>',
+					'<h1', '</h1>',
+					'<h2', '</h2>',
+					'<h3', '</h3',
+					'<h4', '</h4',
+					'<h5', '</h5',
+					'<p', '</p>',
+					'<button', '</button>',
+					'<pre>', '</pre>',
+					'<blockquote', '</blockquote>',
+					'<!--', '-->',
+					'<embed',
+					'<label', '</label>',
+					'<svg', '</svg>'
+				]
 
+				// patterns that might break the program
+				const warnings = [
+					'<br>',
+					'<span', '</span>',
+					'style="',
+					'align="',
+					'!important',
+					'href="',
+					'<a', '</a>',
+					'<sup', '</sup>',
+					'<sub', '</sub>',
+					'text-align:',
+					'<abbr', '</abbr>',
+					'<address', '</address>',
+					'<bdo', '</bdo>',
+					'<font', '</font>',
+					'<small', '</small>'
+				]
+
+				// if replacedPattern, update codeBreakerCount
 				replacedPatterns.forEach(function(pattern) {
-					result = checkForPatterns(item, pattern)
+					result = checkForMatch(item, pattern)
 					if (result === true) {
-						replacedPatternsFlags = replacedPatternsFlags + 1
+						codeBreakerCount = codeBreakerCount + 1
 					}
 				})
 
-				detectedCode.forEach(function(code) {
-					result = checkForPatterns(item, code)
+				// if codeBreaker, update codeBreakerCount
+				codeBreakers.forEach(function(breaker) {
+					result = checkForMatch(item, breaker)
 					if (result === true) {
-						detectedCodeFlags = detectedCodeFlags + 1
+						codeBreakerCount = codeBreakerCount + 1
+					}
+				})
+
+				// if warning, update warningCount
+				warnings.forEach(function(warning) {
+					result = checkForMatch(item, warning)
+					if (result === true) {
+						warningCount = warningCount + 1
 					}
 				})
 
@@ -72,18 +139,19 @@ $(function(){
 
 		})
 
-		// log counting variables
+		// log counts
 		console.log(`Item count: ${itemCount}`)
-		console.log(`Replaced patterns flags: ${replacedPatternsFlags}`)
-		console.log(`Detected code flags: ${detectedCodeFlags}`)
+		console.log(`Code breaker count: ${codeBreakerCount}`)
+		console.log(`Warning count: ${warningCount}`)
 
 		// program only runs if user submits at least two items
-		// and if none of their input will be replaced by the program
-		if (itemCount > 1 && replacedPatternsFlags === 0) {
+		// and if none of their input will be replaced by, or break, the program
+		if (itemCount > 1 && codeBreakerCount === 0) {
 
-			// modal warning for any detected code
-			if (detectedCodeFlags > 0) {
+			// open dialog box for any warnings
+			if (warningCount > 0) {
 				$('#dialog').dialog('open')
+				console.log('Warning issued')
 			} else {
 				runProgram()
 			}
@@ -93,10 +161,11 @@ $(function(){
 
 			// error if user submits less than two items
 			$('#error').text('Your list needs at least two items.')
+			console.log('Program did not run')
 
 		} else {
 
-			// error if items contain replaced patterns
+			// error if items contained replacedPatterns or codeBreakers
 			$('#error').text('Something went wrong.')
 			console.log('Program did not run')
 
@@ -283,7 +352,7 @@ $(function(){
 	}
 
 	// check if a string includes a pattern
-	const checkForPatterns = (string, pattern) => {
+	const checkForMatch = (string, pattern) => {
 		if (string.includes(pattern)) {
 			return true
 		} else {
@@ -292,14 +361,15 @@ $(function(){
 	}
 
 	// jquery dialog widget -- api.jqueryui.com/dialog
-	$('#dialog').text('Warning: The HTML in your list items might cause your list to render improperly.')
+	$('#dialog').html('<span class="ui-icon ui-icon-alert"></span>&nbsp;Your list items contain code that will cause your list to render improperly.')
     $('#dialog').dialog({
     	autoOpen: false,
-    	// hide X button
+    	// hide X buttons
     	dialogClass: "no-close",
     	// disable rest of page
     	modal: true,
     	closeOnEscape: false,
+    	minHeight: false,
     	buttons: [
     		{
     			text: 'Go Back',
