@@ -51,15 +51,13 @@ $(function(){
 				itemCount = itemCount + 1
 
 				// patterns that the program will replace
+				// in order to style the output code
 				const replacedPatterns = [
 					'><',
-					'css">ul',
-					'css">ol',
-					'!important;} li',
-					'!important;}<',
 					'<li class',
 					'<li style',
 					'ul {margin',
+					'ol {margin',
 					'li {margin',
 					'li\.firstListItem',
 					'li\.lastListItem'
@@ -94,7 +92,7 @@ $(function(){
 
 				// patterns that might break the program
 				const warnings = [
-					'<br>',
+					'<br>', '<br/>', '<br />',
 					'<span', '</span>',
 					'style="',
 					'align="',
@@ -174,7 +172,7 @@ $(function(){
 
 	})
 
-	// get items
+	// get items array
 	const getItems = () => {
 		const $items = $('#items textarea')
 		return $items
@@ -280,16 +278,16 @@ $(function(){
 		// log, format and display output HTML
 		html = html.outerHTML
 		console.log(`HTML: ${html}`)
-		html = breakLinesInHtml(html)
+		html = breakLines(html)
 		html = indentHtml(html)
 		$('#output textarea:last').text(html)
 
 		/* -------------------------------- */
 
 		// log, format and display output mso
-		mso = `<!--[if mso]><style type="text/css">${listTag} {margin:0 !important;} li {margin-left:${indent}px !important;} li.firstListItem {margin-top:${spaceAboveBelow}px !important;} li.lastListItem {margin-bottom:${spaceAboveBelow}px !important;}</style><![endif]-->`
+		mso = `<!--[if mso]><style type="text/css">\n${listTag} {margin:0 !important;}\nli {margin-left:${indent}px !important;}\nli.firstListItem {margin-top:${spaceAboveBelow}px !important;}\nli.lastListItem {margin-bottom:${spaceAboveBelow}px !important;}\n</style><![endif]-->`
 		console.log(`mso: ${mso}`)
-		mso = breakLinesInMso(mso)
+		mso = breakLines(mso)
 		mso = indentMso(mso)
 		$('#output textarea:first').text(mso)
 
@@ -302,6 +300,7 @@ $(function(){
 
 	// get list spacing
 	const getSpacing = (style, fallback) => {
+		// if user didnt enter spacing values, return default as fallback
 		if ($("input[name=" + style + "]").val().length === 0) {
 			return fallback
 		} else {
@@ -309,22 +308,12 @@ $(function(){
 		}
 	}
 
-	// break lines in html
-	const breakLinesInHtml = html => {
-		return html.replace(/></gi, '>\n<')
+	// break lines in output code
+	const breakLines = code => {
+		return code.replace(/></gi, '>\n<')
 	}
 
-	// break lines in mso
-	const breakLinesInMso = mso => {
-		mso = breakLinesInHtml(mso)
-		mso = mso.replace(/css">ul/gi, 'css">\nul')
-		mso = mso.replace(/css">ol/gi, 'css">\nol')
-		mso = mso.replace(/!important;} li/gi, '!important;}\nli')
-		mso = mso.replace(/!important;}</gi, '!important;}\n<')
-		return mso
-	}
-
-	// indenter function
+	// indent output code
 	const indent = (code, replaceThis) => {
 		const regex = new RegExp(replaceThis, "gi")
 		code = code.replace(regex, '  $&')
@@ -343,7 +332,7 @@ $(function(){
 
 	// indent mso
 	const indentMso = mso => {
-		patternsToIndent = ['ul {margin', 'li {margin', 'li\.firstListItem', 'li\.lastListItem']
+		patternsToIndent = ['ul {margin', 'ol {margin', 'li {margin', 'li\.firstListItem', 'li\.lastListItem']
 		// run indenter function on each pattern
 		patternsToIndent.forEach(function(pattern) {
 			mso = indent(mso, pattern)
