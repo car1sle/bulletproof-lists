@@ -158,7 +158,8 @@ div#input textarea {
 	font-weight: 400;
 }
 
-button {
+/* submit button */
+#input button {
 	background-color: #ffffff;
 	margin: 0 auto;
 	margin-top: 25px;
@@ -172,11 +173,11 @@ button {
 	font-weight: 500;
 }
 
+/* increment decrement div buttons */
 div#increment {
 	text-align: center;
 }
 
-/* 2 buttons */
 div#increment div {
 	width: 30px;
 	height: 20px;
@@ -186,6 +187,35 @@ div#increment div {
 	font-weight: 500;
 }
 
+/* copy output to clipboard buttons */
+#output button {
+	background-color: #ffffff;
+	display: block;
+	border: 1px solid #808080;
+	padding: 4px 10px;
+	font-size: 13px;
+	color: #808080;
+	letter-spacing: 0.01em;
+	font-weight: 400;
+}
+
+/* 2 output areas */
+div#output textarea {
+	width: 275px;
+	color: #8a8a8a;
+	font-size: 12px;
+	line-height: 18px;
+	font-weight: 300;
+	margin-bottom: 5px;
+}
+
+#output p {
+	margin-bottom: 10px;
+	font-size: 13px;
+	font-style: italic;
+}
+
+/* error messages */
 div#error {
 	margin: 10px auto!important;
 	text-align: center;
@@ -195,28 +225,9 @@ div#error {
 
 
 
-/* 2 output areas */
-div#output textarea {
-	width: 275px;
-	color: #8a8a8a;
-	font-size: 12px;
-	line-height: 18px;
-	font-weight: 300;
-}
-
-#output p {
-	margin-bottom: 10px;
-	font-size: 13px;
-	font-style: italic;
-}
 
 
-
-
-
-
-
-/* dialog widget - jQuery UI CSS framework */
+/* dialog widget - jQuery ui css framework */
 .no-close .ui-dialog-titlebar {
   display: none;
 }
@@ -298,7 +309,12 @@ div#output textarea {
 	}
 
 	h3 {
-		margin-top: 15px !important;
+		margin-top: 15px;
+	}
+
+	footer {
+		text-align: left;
+		margin: 0 0 40px 10px;
 	}
 
 }

@@ -26,6 +26,17 @@ $(function(){
 		$(this)[0].style.height = $(this)[0].scrollHeight + 'px'
 	})
 
+	// copy output mso to clipboard
+	$('#mso button').click(() => {
+		console.log('mso copied to clipboard')
+		copy('#mso textarea')
+	})
+
+	// copy output html to clipboard
+	$('#html button').click(() => {
+		console.log('html copied to clipboard')
+		copy('#html textarea')
+	})
 
 	// submit event
 	$('#submit').submit((event) => {
@@ -275,7 +286,7 @@ $(function(){
 			html.appendChild(li)
 		})
 
-		// log, format and display output HTML
+		// log, format and display output html
 		html = html.outerHTML
 		console.log(`HTML: ${html}`)
 		html = breakLines(html)
@@ -349,6 +360,13 @@ $(function(){
 		}
 	}
 
+	// copy to clipboard
+	const copy = (selector) => {
+		var copyThis = document.querySelector(selector)
+		copyThis.select()
+		document.execCommand("copy")
+	}
+
 	// jquery dialog widget -- api.jqueryui.com/dialog
 	$('#dialog').html('<span class="ui-icon ui-icon-alert"></span>&nbsp;Your list items contain code that will cause your list to render improperly.')
     $('#dialog').dialog({
@@ -383,5 +401,4 @@ $(function(){
 
 
 })
-
 
