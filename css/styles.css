@@ -23,10 +23,6 @@ div#wrapper {
 	width: 45%;
 }
 
-
-
-
-
 /* body */
 body {
 	background-color: #ffffff;
@@ -69,9 +65,9 @@ footer a:hover {
 	text-decoration: underline;
 }
 
-
-
-
+button:hover {
+	cursor: pointer;
+}
 
 /* headers */
 header {
@@ -114,10 +110,6 @@ h3.lower {
     margin-top:30px !important;
 }
 
-
-
-
-
 /* input */
 #input h3 {
 	text-decoration: underline;
@@ -131,7 +123,7 @@ form#submit div {
 	margin-top: 15px;
 }
 
-/* 1 dropdown */
+/* list marker dropdown */
 select {
 	font-family: 'Roboto Mono', monospace;
 	color: #303030;
@@ -148,7 +140,7 @@ input {
 	text-align: right;
 }
 
-/* [2+] item fields */
+/* 2(+) item fields */
 div#input textarea {
 	margin-top: 15px;
 	width: 100%;
@@ -173,11 +165,11 @@ div#input textarea {
 	font-weight: 500;
 }
 
-/* increment decrement div buttons */
 div#increment {
 	text-align: center;
 }
 
+/* 2 increment & decrement div 'buttons' */
 div#increment div {
 	width: 40px;
 	height: 25px;
@@ -189,20 +181,25 @@ div#increment div {
 	font-weight: 500;
 }
 
-/* copy output to clipboard buttons */
+div#increment div:hover {
+	cursor: pointer;
+}
+
+/* 2 copy to clipboard buttons */
 #output button {
+	width: 130px;
+	padding:4px 0;
 	background-color: #ffffff;
 	display: block;
-	border: 1px solid #808080;
-	border-radius: 5px;
-	padding: 4px 9px;
+	border: 1px solid #d1d1d1;
+	border-radius: 4px;
 	font-size: 13px;
 	color: #808080;
 	letter-spacing: 0.01em;
 	font-weight: 400;
 }
 
-/* 2 output areas */
+/* 2 output textareas */
 div#output textarea {
 	width: 300px;
 	color: #808080;
@@ -225,9 +222,6 @@ div#error {
 	font-size: 14px;
 	color: red;
 }
-
-
-
 
 
 /* dialog widget - jQuery ui css framework */
@@ -259,6 +253,7 @@ div#error {
 	font-family: 'Roboto', sans-serif;
 	color: #303030;
 	letter-spacing: 0.04em;
+	text-transform: uppercase;
 }
 
 .ui-dialog .ui-dialog-buttonpane button {
@@ -275,14 +270,7 @@ div#error {
 	color: #2b2b2b;
 }
 
-
-
-
-
-
-
-
-
+/* media queries */
 @media only screen and (max-width: 775px)  {
 
 	header, section, footer {
@@ -324,7 +312,7 @@ div#error {
 
 @media only screen and (max-width: 430px)  {
 
-	/* needs important */
+	/* need important */
 	textarea, form#submit {
 		width: 100% !important;
 	}
@@ -340,6 +328,5 @@ div#error {
 	}
 
 }
-
 
 

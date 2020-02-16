@@ -8,7 +8,6 @@ $(function(){
 		$('div#items').append(newTextArea)
 
 	})
-
  
 	// click event to remove list item
 	$('#increment div:last').click(() => {
@@ -18,7 +17,6 @@ $(function(){
 		$('div#items textarea.increment:last').remove()
 
 	})
-
 
 	// input event to resize input textareas to fit text
 	// cannot use $(this) with arrow function
@@ -262,6 +260,7 @@ $(function(){
 		/* -------------------------------- */
 
 		// create global listTag variable based on listMarker variable
+		// must delcare with let
 		if (listMarker === 'decimal' || listMarker === 'upper-alpha' || listMarker === 'lower-alpha') {
 			var listTag = 'ol'
 		} else {
@@ -360,11 +359,23 @@ $(function(){
 		}
 	}
 
-	// copy to clipboard
-	const copy = (selector) => {
-		var copyThis = document.querySelector(selector)
-		copyThis.select()
-		document.execCommand("copy")
+	// copy textarea to clipboard
+	const copy = (areaSelector) => {
+		const textArea = document.querySelector(areaSelector)
+		textArea.select()
+		document.execCommand('copy')
+		// prevent default highlighting of textarea
+    	textArea.setSelectionRange(0, 0)
+    	textArea.blur()
+    	// select corresponding button using adjacent sibling selector
+    	const copyButtonSelector = areaSelector + ' + button'
+    	const copyButton = document.querySelector(copyButtonSelector)
+    	// confirm copy success in button text
+    	copyButton.innerHTML = 'Copied!'
+    	// after two seconds, revert to copy prompt
+    	setTimeout(function() {
+    		copyButton.innerHTML = 'Copy to clipboard'
+    	}, 1000)
 	}
 
 	// jquery dialog widget -- api.jqueryui.com/dialog
@@ -398,7 +409,6 @@ $(function(){
 		    }
 		]
     })
-
 
 })
 
