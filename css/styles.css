@@ -2,7 +2,7 @@
 /* flex columns -- input & output */
 section {
 	display: block;
-	width: 700px;
+	width: 750px;
 	margin: 0 auto;
 	margin-bottom: 30px;
 }
@@ -16,11 +16,11 @@ div#wrapper {
 }
 
 #input {
-	width: 60%;
+	width: 55%;
 }
 
 #output {
-	width: 40%;
+	width: 45%;
 }
 
 
@@ -58,11 +58,11 @@ footer {
 	margin-bottom: 60px;
 	font-size: 14px;
 	line-height: 25px;
-	color: #d1d1d1;
+	color: #808080;
 }
 
 footer a {
-	color: #d1d1d1;
+	color: #808080;
 }
 
 footer a:hover {
@@ -110,8 +110,8 @@ h4 {
 }
 
 /* 2 lower headers */
-form>h3:nth-of-type(2), #output>h3:nth-of-type(2) {
-    margin-top:30px;
+h3.lower {
+    margin-top:30px !important;
 }
 
 
@@ -148,7 +148,7 @@ input {
 	text-align: right;
 }
 
-/* [2] item fields */
+/* [2+] item fields */
 div#input textarea {
 	margin-top: 15px;
 	width: 100%;
@@ -165,7 +165,7 @@ div#input textarea {
 	margin-top: 25px;
 	display: block;
 	border: 1px solid #303030;
-	padding: 8px 15px;
+	padding: 8px 20px;
 	font-size: 15px;
 	text-transform: uppercase;
 	color: #303030;
@@ -179,11 +179,13 @@ div#increment {
 }
 
 div#increment div {
-	width: 30px;
-	height: 20px;
+	width: 40px;
+	height: 25px;
 	background-color: #d1d1d1;
 	display: inline-block;
 	margin: 0 5px;
+	font-size: 20px;
+	line-height: 25px;
 	font-weight: 500;
 }
 
@@ -192,7 +194,8 @@ div#increment div {
 	background-color: #ffffff;
 	display: block;
 	border: 1px solid #808080;
-	padding: 4px 10px;
+	border-radius: 5px;
+	padding: 4px 9px;
 	font-size: 13px;
 	color: #808080;
 	letter-spacing: 0.01em;
@@ -201,8 +204,8 @@ div#increment div {
 
 /* 2 output areas */
 div#output textarea {
-	width: 275px;
-	color: #8a8a8a;
+	width: 300px;
+	color: #808080;
 	font-size: 12px;
 	line-height: 18px;
 	font-weight: 300;
@@ -280,9 +283,9 @@ div#error {
 
 
 
-@media only screen and (max-width: 750px)  {
+@media only screen and (max-width: 775px)  {
 
-	header, section {
+	header, section, footer {
 		width: 95%;
 	}
 
@@ -313,14 +316,15 @@ div#error {
 	}
 
 	footer {
+		margin: 0 auto 50px;
 		text-align: left;
-		margin: 0 0 40px 10px;
 	}
 
 }
 
-@media only screen and (max-width: 425px)  {
+@media only screen and (max-width: 430px)  {
 
+	/* needs important */
 	textarea, form#submit {
 		width: 100% !important;
 	}
@@ -329,11 +333,6 @@ div#error {
 	h4 {
 		margin: 20px 0 5px;
 		display: block;
-	}
-
-	/* 2 lower headers */
-	form>h3:nth-of-type(2), #output>h3:nth-of-type(2) {
-	    margin-top: 30px !important;
 	}
 
 	header p {
