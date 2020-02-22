@@ -181,12 +181,6 @@ $(function(){
 
 	})
 
-	// get items array
-	const getItems = () => {
-		const $items = $('#items textarea')
-		return $items
-	}
-
 	// run program
 	const runProgram = () => {
 		
@@ -195,6 +189,10 @@ $(function(){
 
 		// clear error message
 		$('#error').text('')
+
+		// get old output
+		const oldHtml = $('#output textarea:last').text()
+		const oldMso = $('#output textarea:first').text()
 
 		// create variables for list styles
 		const listMarker = $('select')[0].value
@@ -303,9 +301,27 @@ $(function(){
 
 		/* -------------------------------- */
 
-		// resize output textareas to fit text
-		$('#output textarea:last')[0].style.height = $('#output textarea:last')[0].scrollHeight + 5 + 'px'
-		$('#output textarea:first')[0].style.height = $('#output textarea:first')[0].scrollHeight + 5 + 'px'
+		// reveal copy to clipboard buttons
+		$('#output button').show()
+		$('#output button').css({
+			display: 'block',
+			marginTop: '5px',
+			marginBottom: '10px'
+		})
+
+		// if new output, resize textareas to fit text
+		if (oldHtml != html) {
+			$('#output textarea:last')[0].style.height = $('#output textarea:last')[0].scrollHeight + 5 + 'px'
+		}
+		if (oldMso != mso) {
+			$('#output textarea:first')[0].style.height = $('#output textarea:first')[0].scrollHeight + 5 + 'px'
+		}
+	}
+
+	// get items array
+	const getItems = () => {
+		const $items = $('#items textarea')
+		return $items
 	}
 
 	// get list spacing
@@ -364,9 +380,6 @@ $(function(){
 		const textArea = document.querySelector(areaSelector)
 		textArea.select()
 		document.execCommand('copy')
-		// prevent default highlighting of textarea
-    	textArea.setSelectionRange(0, 0)
-    	textArea.blur()
     	// select corresponding button using adjacent sibling selector
     	const copyButtonSelector = areaSelector + ' + button'
     	const copyButton = document.querySelector(copyButtonSelector)
@@ -375,6 +388,9 @@ $(function(){
     	// after two seconds, revert to copy prompt
     	setTimeout(function() {
     		copyButton.innerHTML = 'Copy to clipboard'
+    		// revert default highlighting of textarea
+	    	textArea.setSelectionRange(0, 0)
+	    	textArea.blur()
     	}, 1000)
 	}
 

@@ -31,6 +31,7 @@ body {
 	color: #303030;
 	letter-spacing: 0.01em;
 	font-size: 15px;
+	cursor: default;
 }
 
 p {
@@ -65,7 +66,7 @@ footer a:hover {
 	text-decoration: underline;
 }
 
-button:hover {
+button:hover, select:hover {
 	cursor: pointer;
 }
 
@@ -106,8 +107,12 @@ h4 {
 }
 
 /* 2 lower headers */
-h3.lower {
+#input h3.lower {
     margin-top:30px !important;
+}
+
+#output h3.lower {
+    margin-top:20px !important;
 }
 
 /* input */
@@ -187,16 +192,16 @@ div#increment div:hover {
 
 /* 2 copy to clipboard buttons */
 #output button {
-	width: 130px;
+	width: 140px;
 	padding:4px 0;
 	background-color: #ffffff;
-	display: block;
 	border: 1px solid #d1d1d1;
 	border-radius: 4px;
 	font-size: 13px;
 	color: #808080;
 	letter-spacing: 0.01em;
 	font-weight: 400;
+	display: none;
 }
 
 /* 2 output textareas */
@@ -206,7 +211,6 @@ div#output textarea {
 	font-size: 12px;
 	line-height: 18px;
 	font-weight: 300;
-	margin-bottom: 5px;
 }
 
 #output p {
