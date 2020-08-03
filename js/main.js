@@ -201,7 +201,9 @@ $(function(){
 		// call getSpacing()
 		// inputs do not allow negative numbers
 		const indent = getSpacing('indent', 40)
+		const msoIndent = parseInt(indent) + 7
 		console.log(`Left indent: ${indent}px`)
+		console.log(`Mso indent: ${msoIndent}px`)
 
 		const spaceBetween = getSpacing('spaceBetween', 10)
 		console.log(`Space between items: ${spaceBetween}px`)
@@ -293,7 +295,7 @@ $(function(){
 		/* -------------------------------- */
 
 		// log, format and display output mso
-		mso = `<!--[if mso]><style type="text/css">\n${listTag} {margin:0 !important;}\nli {margin-left:${indent}px !important;}\nli.firstListItem {margin-top:${spaceAboveBelow}px !important;}\nli.lastListItem {margin-bottom:${spaceAboveBelow}px !important;}\n</style><![endif]-->`
+		mso = `<!--[if mso]><style type="text/css">\n${listTag} {margin:0 !important;}\nli {margin-left:${msoIndent}px !important;}\nli.firstListItem {margin-top:${spaceAboveBelow}px !important;}\nli.lastListItem {margin-bottom:${spaceAboveBelow}px !important;}\n</style><![endif]-->`
 		console.log(`mso: ${mso}`)
 		mso = breakLines(mso)
 		mso = indentMso(mso)
