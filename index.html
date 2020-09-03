@@ -39,6 +39,9 @@
 										<option value="lower-alpha">a.&nbsp; lowercase alphabet</option>
 									</select>
 								</div>
+								<div style="margin-top:5px!important;">
+									<p>&#42;Use &#62;20px indents to contain list markers within table.</p>
+								</div>
 								<div>
 									<h4>Left Indent</h4>
 									<input form="submit" name="indent" type="number" min="0" max="100" placeholder="40">&nbsp;px
@@ -85,6 +88,17 @@
 
 			<div id="dialog"></div>
 
+		</section>
+
+		<section id="note">
+			<div>
+				<p><strong>Creator's Note</strong>: Please render test before sending. Below are known limitations as of 9/2/20. Reach out with any issues!</p>
+				<ul>
+					<li>Webmail in Explorer &#38; Firefox add a few pixels to Left Indent.</li>
+					<li>Yahoo! Mail in Explorer renders a much larger Left Indent.</li>
+					<li>Depending on the relation of your list to other elements, older versions of Outlook desktop may display an additional List Marker. To resolve, add <span style="font-family:'Roboto Mono',monospace;">&lt;div style="display:none;"&gt;&#38;nbsp;&lt;/div&gt;</span> after your closing <span style="font-family:'Roboto Mono',monospace;">&lt;/ul&gt;</span>.</li>
+				</ul>
+			</div>
 		</section>
 
 		<footer><a href="https://github.com/car1sle/bulletproof-lists" target="_blank">GitHub</a><br><a href="mailto:hello@lists.cm" target="_blank">hello@lists.cm</a><br>&#169; 2020 Carly Ciricillo</footer>

@@ -274,9 +274,6 @@ $(function(){
 		html.style.listStyleType = listMarker
 		html.style.padding = `0 0 0 ${indent}px`
 		html.style.margin = `${spaceAboveBelow}px 0`
-		if (indent === 0) {
-			html.style.listStylePosition = `inside`
-		}
 
 		/* -------------------------------- */
 
