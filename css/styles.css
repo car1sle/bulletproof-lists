@@ -196,6 +196,11 @@ div#increment div:hover {
 	cursor: pointer;
 }
 
+div#increment .minus.hidden {
+	display: none;
+}
+
+
 /* 2 copy to clipboard buttons */
 #output button {
 	width: 140px;
