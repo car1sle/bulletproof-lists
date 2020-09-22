@@ -7,15 +7,22 @@ $(function(){
 		const newTextArea = '<textarea rows="1" form="submit" placeholder="Start typing..." spellcheck="false" class="increment"></textarea>'
 		$('div#items').append(newTextArea)
 
+		if($('div#items textarea').length > 2 && $('#increment .minus').hasClass('hidden')){
+			$('#increment .minus').toggleClass('hidden');
+		}
+
 	})
- 
+
 	// click event to remove list item
 	$('#increment div:last').click(() => {
 
 		// remove last textarea with class .increment
 		// first two textareas do not have class .increment
-		$('div#items textarea.increment:last').remove()
+		$('div#items textarea.increment:last').remove();
 
+		if($('div#items textarea').length <= 2){
+			$('#increment .minus').toggleClass('hidden');
+		}
 	})
 
 	// input event to resize input textareas to fit text
@@ -35,6 +42,13 @@ $(function(){
 		console.log('html copied to clipboard')
 		copy('#html textarea')
 	})
+
+	jQuery(document).ready(function(){
+		jQuery('[form="submit"]').on("keydown keyup", function(){
+			this.style.height = "1px";
+			this.style.height = (this.scrollHeight) + "px";
+		});
+	});
 
 	// submit event
 	$('#submit').submit((event) => {
@@ -71,7 +85,7 @@ $(function(){
 					'li\.firstListItem',
 					'li\.lastListItem'
 				]
-				
+
 				// patterns that will break the program
 				const codeBreakers = [
 					'<table','</table>',
@@ -183,7 +197,7 @@ $(function(){
 
 	// run program
 	const runProgram = () => {
-		
+
 		console.log('Running program')
 		const items = getItems()
 
@@ -426,4 +440,3 @@ $(function(){
     })
 
 })
-
