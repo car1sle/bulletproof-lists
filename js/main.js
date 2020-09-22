@@ -43,6 +43,14 @@ $(function(){
 			console.log('html copied to clipboard')
 			copy('#html textarea')
 		})
+
+		//resize textbox on key
+		jQuery(document).ready(function(){
+			jQuery('[form="submit"]').on("keydown keyup", function(){
+				this.style.height = "1px";
+				this.style.height = (this.scrollHeight) + "px"; 
+			});
+		});
 	
 		// submit event
 		$('#submit').submit((event) => {
