@@ -8,7 +8,7 @@ $(function(){
 		$('div#items').append(newTextArea)
 
 		if($('div#items textarea').length > 2 && $('#increment .minus').hasClass('hidden')){
-			$('#increment .minus').toggleClass('hidden');
+			$('#increment .minus').toggleClass('hidden')
 		}
 
 	})
@@ -18,10 +18,10 @@ $(function(){
 
 		// remove last textarea with class .increment
 		// first two textareas do not have class .increment
-		$('div#items textarea.increment:last').remove();
+		$('div#items textarea.increment:last').remove()
 
 		if($('div#items textarea').length <= 2){
-			$('#increment .minus').toggleClass('hidden');
+			$('#increment .minus').toggleClass('hidden')
 		}
 	})
 
@@ -45,8 +45,8 @@ $(function(){
 
 	jQuery(document).ready(function(){
 		jQuery('[form="submit"]').on("keydown keyup", function(){
-			this.style.height = "1px";
-			this.style.height = (this.scrollHeight) + "px";
+			this.style.height = "1px"
+			this.style.height = (this.scrollHeight) + "px"
 		});
 	});
 

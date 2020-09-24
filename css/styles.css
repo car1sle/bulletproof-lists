@@ -232,7 +232,7 @@ div#error {
 	color: red;
 }
 
-/* creator's note */
+/* creator's note
 section#note {
 	padding-top: 20px;
 }
@@ -253,6 +253,7 @@ section#note div p, section#note div li {
 	font-size: 14px;
 	line-height: 1.4;
 }
+*/
 
 /* dialog widget - jQuery ui css framework */
 .no-close .ui-dialog-titlebar {
