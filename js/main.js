@@ -43,13 +43,6 @@ $(function(){
 		copy('#html textarea')
 	})
 
-	jQuery(document).ready(function(){
-		jQuery('[form="submit"]').on("keydown keyup", function(){
-			this.style.height = "1px"
-			this.style.height = (this.scrollHeight) + "px"
-		});
-	});
-
 	// submit event
 	$('#submit').submit((event) => {
 
