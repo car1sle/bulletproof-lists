@@ -134,6 +134,15 @@ form#submit div {
 	margin-top: 15px;
 }
 
+form#submit div#increment {
+	margin-top: 20px;
+}
+
+input.padding {
+	width: 40px;
+	padding: 2px 6px;
+}
+
 /* list marker dropdown */
 select {
 	font-family: 'Roboto Mono', monospace;
@@ -165,11 +174,11 @@ div#input textarea {
 #input button {
 	background-color: #ffffff;
 	margin: 0 auto;
-	margin-top: 25px;
+	margin-top: 30px;
 	display: block;
 	border: 1px solid #303030;
 	padding: 8px 20px;
-	font-size: 15px;
+	font-size: 20px;
 	text-transform: uppercase;
 	color: #303030;
 	letter-spacing: 0.05em;
@@ -182,14 +191,15 @@ div#increment {
 
 /* 2 increment & decrement div 'buttons' */
 div#increment div {
-	width: 40px;
-	height: 25px;
+	width: 60px;
+	height: 30px;
 	background-color: #d1d1d1;
 	display: inline-block;
 	margin: 0 5px;
 	font-size: 20px;
-	line-height: 25px;
+	line-height: 30px;
 	font-weight: 500;
+	border-radius: 2px;
 }
 
 div#increment div:hover {
