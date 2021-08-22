@@ -208,7 +208,7 @@ $(function(){
 		// call getSpacing()
 		// inputs do not allow negative numbers
 		const indent = getSpacing('indent', 40)
-		const msoIndent = parseInt(indent) + 7
+		const msoIndent = parseInt(indent)
 		console.log(`Left indent: ${indent}px`)
 		console.log(`Mso indent: ${msoIndent}px`)
 
@@ -246,15 +246,14 @@ $(function(){
 		// add bottom margins to all li tags
 		// creates space between list items
 		styledLis.forEach(function(li) {
-			li.style.margin = `0 0 ${spaceBetween}px`
-			li.style.textAlign = 'left'
+			$(li).attr('style','text-align: left; mso-special-format: bullet; margin: 0 0 ' + spaceBetween + 'px;')
 		})
 
 		// style last item
 		// make bottom margin 0 to override gmail default
 		// add class 'lastListItem'
 		const lastLi = styledLis.pop()
-		lastLi.style.margin = 0
+		$(lastLi).attr('style','margin: 0; mso-special-format: bullet; text-align: left;')
 		lastLi.className = 'lastListItem'
 		styledLis.push(lastLi)
 
@@ -278,9 +277,7 @@ $(function(){
 		let html = `<${listTag} align="left"></${listTag}>`
 		html = $.parseHTML(html)
 		html = html[0]
-		html.style.listStyleType = listMarker
-		html.style.padding = `0 0 0 ${indent}px`
-		html.style.margin = `${spaceAboveBelow}px 0`
+		$(html).attr('style','list-style-type: ' + listMarker + '; padding: 0 0 0 ' + indent + 'px; margin: ' + spaceAboveBelow + 'px 0;')
 
 		/* -------------------------------- */
 
@@ -299,7 +296,7 @@ $(function(){
 		/* -------------------------------- */
 
 		// log, format and display output mso
-		mso = `<!--[if mso]><style type="text/css">\n${listTag} {margin:0 !important;}\nli {margin-left:${msoIndent}px !important;}\nli.firstListItem {margin-top:${spaceAboveBelow}px !important;}\nli.lastListItem {margin-bottom:${spaceAboveBelow}px !important;}\n</style><![endif]-->`
+		mso = `<!--[if mso]><style type="text/css">\n${listTag} {margin: 0 !important;}\nli {margin-left: ${msoIndent}px !important;}\nli.firstListItem {margin-top: ${spaceAboveBelow}px !important;}\nli.lastListItem {margin-bottom: ${spaceAboveBelow}px !important;}\n</style><![endif]-->`
 		console.log(`mso: ${mso}`)
 		mso = breakLines(mso)
 		mso = indentMso(mso)
