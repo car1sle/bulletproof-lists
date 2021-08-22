@@ -253,7 +253,7 @@ $(function(){
 		// make bottom margin 0 to override gmail default
 		// add class 'lastListItem'
 		const lastLi = styledLis.pop()
-		$(lastLi).attr('style','margin: 0; mso-special-format: bullet; text-align: left;')
+		$(lastLi).attr('style','text-align: left; mso-special-format: bullet; margin: 0;')
 		lastLi.className = 'lastListItem'
 		styledLis.push(lastLi)
 
