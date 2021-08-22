@@ -246,14 +246,22 @@ $(function(){
 		// add bottom margins to all li tags
 		// creates space between list items
 		styledLis.forEach(function(li) {
-			$(li).attr('style','text-align: left; mso-special-format: bullet; margin: 0 0 ' + spaceBetween + 'px;')
+			if(listMarker === "disc") {
+				$(li).attr('style','text-align: left; mso-special-format: bullet; margin: 0 0 ' + spaceBetween + 'px;')
+			} else {
+				$(li).attr('style','text-align: left; margin: 0 0 ' + spaceBetween + 'px;')
+			}
 		})
 
 		// style last item
 		// make bottom margin 0 to override gmail default
 		// add class 'lastListItem'
 		const lastLi = styledLis.pop()
-		$(lastLi).attr('style','text-align: left; mso-special-format: bullet; margin: 0;')
+		if(listMarker === "disc") {
+			$(lastLi).attr('style','text-align: left; mso-special-format: bullet; margin: 0;')
+		} else {
+			$(lastLi).attr('style','text-align: left; margin: 0;')
+		}
 		lastLi.className = 'lastListItem'
 		styledLis.push(lastLi)
 
