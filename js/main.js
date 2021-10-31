@@ -27,7 +27,8 @@ $(function(){
 
 	// input event to resize input textareas to fit text
 	// cannot use $(this) with arrow function
-	$('body').on('input', '#input textarea', function() {
+	$('body').on('input', '#items textarea', function() {
+		$(this)[0].style.height = 0;
 		$(this)[0].style.height = $(this)[0].scrollHeight + 'px'
 	})
 
