@@ -232,7 +232,7 @@ $(function(){
 
 			if (item) {
 				console.log(`List item: ${item}`)
-				const itemHtml = `<li>${item}</li>`
+				const itemHtml = `<li><span>${item}</span></li>`
 				bareLis.push(itemHtml)
 			}
 
@@ -271,6 +271,33 @@ $(function(){
 		const firstLi = styledLis.shift()
 		firstLi.className = 'firstListItem'
 		styledLis.unshift(firstLi)
+
+		// add color to the li and span elements
+
+		// fetch the list marker color value
+		const listMarkerColor = $('#listMarkerColor').val();
+
+		// apply the list marker color to the li elements
+		styledLis.forEach(function(li) {
+			if(listMarkerColor === "disc") {
+				$(li).attr('style', `text-align: left; mso-special-format: bullet; margin: 0 0 ${spaceBetween}px; color: ${listColor};`);
+			} else {
+				$(li).attr('style', `text-align: left; margin: 0 0 ${spaceBetween}px; color: ${listMarkerColor};`);
+			}
+		});
+
+		// fetch the list text color value
+		const listTextColor = $('#listTextColor').val();
+
+		// apply the list text color to the span elements within li tags
+		styledLis.forEach(function(li) {
+				const span = $(li).find('span');
+				if (listMarker === "disc") {
+						$(span).attr('style', `color: ${listTextColor};`);
+				} else {
+						$(span).attr('style', `color: ${listTextColor};`);
+				}
+		});
 
 		/* -------------------------------- */
 
